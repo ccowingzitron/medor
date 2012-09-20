@@ -1,0 +1,4 @@
+export(conf.interval, conf.statement, print.conf.interval, print.conf.statement)
+
+S3method(print, conf.interval)
+S3method(print, conf.statement)

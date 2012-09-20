@@ -1,0 +1,13 @@
+Package: MedOr
+Version: 0.1
+Date: 2012-09-20
+Title: Median Ordering Statistical R package
+Author: Adriano Polpo <polpo@ufscar.br>,
+        Carlos Alberto de Braganca Pereira <cpereira@ime.usp.br>
+Maintainer: Adriano Polpo <polpo@ufscar.br>
+Depends: R (>= 2.15.0)
+Description: This package contains the functions used to perform some confidence
+             statistics based in population median.
+License: GPL (>= 3)
+Repository: Google Code
+URL: http://code.google.com/p/medor/

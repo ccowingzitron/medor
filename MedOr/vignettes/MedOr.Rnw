@@ -1,0 +1,170 @@
+% # NPstat package for R (http://www.R-project.org)
+% # Copyright (C) 2012 Adriano Polpo, Carlos A. de B. Pereira.
+% #
+% #    This program is free software: you can redistribute it and/or modify
+% #    it under the terms of the GNU General Public License as published by
+% #    the Free Software Foundation, either version 3 of the License, or
+% #    (at your option) any later version.
+% #
+% #    This program is distributed in the hope that it will be useful,
+% #    but WITHOUT ANY WARRANTY; without even the implied warranty of
+% #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% #    GNU General Public License for more details.
+% #
+% #    You should have received a copy of the GNU General Public License
+% #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+\documentclass[nogin,letterpaper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption,subfig}
+\usepackage{bm}
+\usepackage{verbatim}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage{natbib}
+
+%Package
+%\usepackage{amsmath}
+\usepackage{amsfonts,amssymb}
+%\usepackage{mathrsfs}
+\usepackage{theorem}
+%\usepackage{subfigure}
+%\usepackage{graphicx,url}
+%\usepackage{float}
+%\usepackage{enumerate}
+%\interdisplaylinepenalty=2500
+
+%New symbols
+%\def\Rset{{\mathbb R}}
+%\def\Zset{{\mathbb Z}}
+%\def\Nset{{\mathbb N}}
+%\def\Eset{{\textnormal{E}}}
+%\def\Pset{{\mathbb P}}
+\def\Iset{{\mathbb I}}
+%\def\Mu{{\mathcal M}}
+%\def\Cclasse{{\mathscr C}}
+%\def\Pr{{\textnormal{Pr}}}
+\newcommand{\comb}[2]{\displaystyle \left(\hspace*{-0.18cm}\begin{array}{c} {#1}\\{#2} \end{array}\hspace*{-0.18cm} \right)}
+\newcommand{\combs}[2]{\textnormal{{\tiny$\left(\hspace*{-0.18cm}\begin{array}{c} {#1}\\{#2} \end{array}\hspace*{-0.18cm} \right)$}}}
+
+
+%\def\contint{{\displaystyle \subset\hspace{-0,4cm}\int}}
+%\def\intprod{{\mathop{\textnormal{{\huge $\pi$}}}}}
+%\def\d{{\textnormal{d}}}
+%\newcommand{\somasalto}[3]{\sum\limits_{\stackrel{#1: \textnormal{ jump of } #2}{#3}}}
+%\newcommand{\Cint}[2]{\displaystyle \subset\hspace{-0,4cm}\int\limits_{#1}^{#2}}
+%\newcommand{\intprodeq}[2]{\mathop{\intprod}\limits_{#1}^{#2}}
+
+%Theorem
+\newtheorem{Theorem}{Theorem}
+\newtheorem{Corollary}{Corollary}
+\newtheorem{Definition}{Definition}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{Property}{Property}
+{\theorembodyfont{\rmfamily} \newtheorem{Example}{Example}}
+
+% \VignetteIndexEntry{NPstat}
+
+%opening
+\title{R Package: MedOr}
+
+\author{Adriano Polpo\footnote{Federal University of S\~{a}o Carlos; email: polpo@ufscar.br} \and Carlos A. de B. Pereira\footnote{University of S\~{a}o Paulo; email: cpereira@ime.usp.br}}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  The purpose of this text is to provide a simple manual for the
+  \verb=MedOr= package for \verb=R= language. In short, we give some
+  examples on how to use the main functions of the package.
+\end{abstract}
+
+%\begin{keywords}
+{\it Keywords:} MedOr package, median estimation, order statistics.
+%\end{keywords}
+
+\section{Introduction}
+\label{intro}
+
+This paper present the \verb=MedOr= package for \verb=R= \citep{Rprog}. It is an open source software under \href{http://www.gnu.org/licenses/gpl-3.0.html}{GPLv3}. We illustrate trough examples how to use the functions in the package.
+
+There are two possible analysis to be performed using the package, the first one consist in a confidence interval for the median population (Section \ref{sec_ci}) and the confidence statement for population median order of two or more groups (Section \ref{sec_cs}).
+
+We considered the non-parametric methods based on the order statistics using exactly distributions, we do not use any asymptotic result in the development of the procedures. Of course that some numerical approximation are used when necessary. However, they are not based on asymptotic distribution related to the sample.
+
+\section{Installing the package}
+\label{sec_pack}
+
+In case you have not yet done so, the first thing to do before using the functions is to install and load the library. The package can be obtained from \href{http://code.google.com/p/medor/}{http://code.google.com/p/medor/}.
+
+To install the package from the source file we use
+<<medorinst,eval=FALSE>>=
+install.packages("MedOr_VERSION.tar.gz",
+                 repos=NULL,type="source")
+@ 
+For more details in installing \verb=R= or \verb=R= packages see \citet{Rinstall}. After the package has been installed, to use their functions we should ``call'' it by the command
+<<<medor,eval=TRUE>>=
+library("MedOr")
+@
+
+
+\section{Confidence interval}
+\label{sec_ci}
+
+Let $X_1, \ldots, X_n$ independent identically distributed continuous random variables (or a random sample). Our interest consist in evaluate a confidence interval based in the order statistics for the population median, with level $\alpha \in (0,1)$.
+
+We have that the interval $X_{(j_1)} < M_X < X_{(j_2)}$ has significance level $\alpha$ given by $\alpha = \Pr(B \geq j_1) - \Pr(B \geq j_2)$, where $B$ is a random variable with binomial distribution of parameters $n$ and $1/2$, $j_1, j_2 = 1, \ldots, n$, and $j_1 < j_2$.
+
+Since $B$ has discrete distribution, it may not possible to find an interval with confidence level exactly equal to $\alpha$ (fixed in advance). In this case, we evaluate two confidence intervals for population median: 1) the interval with confidence $\alpha^L$, where $\alpha^L$ is the biggest possible value lower (or equal) than the desired level $\alpha$; 2) the interval with confidence $\alpha^B$, where $\alpha^B$ is the lowest possible value bigger (or equal) than the desired level $\alpha$. In this case the user can choose which interval fits better to his purposes.
+
+\begin{Example}
+\label{ex1}
+In this example we simulated a random sample of size 20 from a normal distribution with mean 0 and variance 1, then we evaluate the confidence interval for the population median, which is known and equal to the mean.
+<<echo=FALSE>>=
+options(width=60)
+set.seed(1234)
+@
+<<example1>>=
+x <- rnorm(20,0,1)
+conf.interval(x,alpha=0.95)
+@
+\end{Example}
+
+\section{Confidence statement}
+\label{sec_cs}
+
+Consider that $X_j = \{X_{j1}, \ldots, X_{jn_j}\}$, $j= 1, \ldots, g$, are independent identically distributed continuous random variables, and $X_1, \ldots, X_g$ is and arrangement of size $g$, that is, we have a sample for each one of the $g$ different groups with size $n_j$. Our interest consist in evaluate the confidence level for the statement $M_1 < M_2 < \cdots < M_g$, the population median ordered.
+
+\begin{Example}
+\label{ex1}
+Pre-operative Gleason score provide valuable prognosis in cases of prostate cancer, in general. However, for patient's Gleason 7 it does not. This is because Gleason 7 tumors display great morphological heterogeneity among regions. The data set have the microarray data of gene RPS28 for recurrent (R) and non-recurrent (NR) Gleason 7 prostate cancer patients. The following commands evaluate the confidence statement for the population median ($M1$) of the recurrent patients be lower than the population median ($M2$) of the non-recurrent patients.
+<<example2>>=
+data(gleason7)
+d <- list(x1 = gleason7[1:5,1], x2 = gleason7[,2])
+conf.statement(d)
+@
+\end{Example}
+
+
+\section{Remarks}
+
+This ``manual'' describes the basis of the \verb=MedOr= package.
+We invite the user to the functions' help pages (available with the package).
+
+\bibliographystyle{apalike}
+
+\begin{thebibliography}{}
+\bibitem[{R Core Team}, 2012a]{Rprog}
+{R Core Team} (2012a).
+\newblock {\em {R}: A Language and Environment for Statistical Computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock ISBN: 3-900051-07-0.
+
+\bibitem[{R Core Team}, 2012b]{Rinstall}
+{R Core Team} (2012b).
+\newblock {\em {R} Installation and Administration}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria.
+\newblock ISBN 3-900051-09-7.
+\end{thebibliography}
+\end{document}
