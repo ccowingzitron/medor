@@ -1,15 +1,15 @@
 citHeader("To cite MedOr in publications please use:")
 
 citEntry(entry = "Article",
-  title        = "MedOr R package",
-  author       = personList(person("Adriano", "Polpo"),
-                   as.person("Adriano Polpo"),
-                   as.person("Carlos A. de B. Pereira")),
-  journal      = "none",
+  title        = "MedOr: Order of Medians Based on Confidence Statements",
+  author       = personList(person("Carlos", "Pereira"),
+                   as.person("Carlos A. de B. Pereira"),
+                   as.person("Adriano Polpo")),
+  journal      = "arXiv.org",
   year         = "2012",
-  url          = "http://code.google.com/p/medor/",
+  url          = "http://arxiv.org/abs/1212.5405",
   textVersion  =
-  paste("A. Polpo and C. A. B. Pereira (2012).",
-        "MedOr R package",
-        "URL http://code.google.com/p/medor/.")
+  paste("C. A. de B. Pereira and A. Polpo (2012).",
+        "\"MedOr: Order of Medians Based on Confidence Statements,\"",
+        "URL http://arxiv.org/abs/1212.5405.")
 )
