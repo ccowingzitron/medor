@@ -24,36 +24,13 @@
 \usepackage{natbib}
 
 %Package
-%\usepackage{amsmath}
 \usepackage{amsfonts,amssymb}
-%\usepackage{mathrsfs}
 \usepackage{theorem}
-%\usepackage{subfigure}
-%\usepackage{graphicx,url}
-%\usepackage{float}
-%\usepackage{enumerate}
-%\interdisplaylinepenalty=2500
 
 %New symbols
-%\def\Rset{{\mathbb R}}
-%\def\Zset{{\mathbb Z}}
-%\def\Nset{{\mathbb N}}
-%\def\Eset{{\textnormal{E}}}
-%\def\Pset{{\mathbb P}}
 \def\Iset{{\mathbb I}}
-%\def\Mu{{\mathcal M}}
-%\def\Cclasse{{\mathscr C}}
-%\def\Pr{{\textnormal{Pr}}}
 \newcommand{\comb}[2]{\displaystyle \left(\hspace*{-0.18cm}\begin{array}{c} {#1}\\{#2} \end{array}\hspace*{-0.18cm} \right)}
 \newcommand{\combs}[2]{\textnormal{{\tiny$\left(\hspace*{-0.18cm}\begin{array}{c} {#1}\\{#2} \end{array}\hspace*{-0.18cm} \right)$}}}
-
-
-%\def\contint{{\displaystyle \subset\hspace{-0,4cm}\int}}
-%\def\intprod{{\mathop{\textnormal{{\huge $\pi$}}}}}
-%\def\d{{\textnormal{d}}}
-%\newcommand{\somasalto}[3]{\sum\limits_{\stackrel{#1: \textnormal{ jump of } #2}{#3}}}
-%\newcommand{\Cint}[2]{\displaystyle \subset\hspace{-0,4cm}\int\limits_{#1}^{#2}}
-%\newcommand{\intprodeq}[2]{\mathop{\intprod}\limits_{#1}^{#2}}
 
 %Theorem
 \newtheorem{Theorem}{Theorem}
@@ -87,7 +64,7 @@
 \section{Introduction}
 \label{intro}
 
-This paper present the \verb=MedOr= package for \verb=R= \citep{Rprog}. It is an open source software under \href{http://www.gnu.org/licenses/gpl-3.0.html}{GPLv3}. We illustrate trough examples how to use the functions in the package.
+This paper present the \verb=MedOr= package for \verb=R= \citep{Rprog}, for more details see \cite{Pereira2012}. It is an open source software under \href{http://www.gnu.org/licenses/gpl-3.0.html}{GPLv3}. We illustrate trough examples how to use the functions in the package.
 
 There are two possible analysis to be performed using the package, the first one consist in a confidence interval for the median population (Section \ref{sec_ci}) and the confidence statement for population median order of two or more groups (Section \ref{sec_cs}).
 
@@ -166,5 +143,11 @@ We invite the user to the functions' help pages (available with the package).
 \newblock {\em {R} Installation and Administration}.
 \newblock R Foundation for Statistical Computing, Vienna, Austria.
 \newblock ISBN 3-900051-09-7.
+
+\bibitem[Pereira, 2012]{Pereira2012}
+Pereira, C. A. de B. and Polpo, A. (2012).
+\newblock {MedOr: Order of Medians Based on Confidence Statements}.
+\newblock arXiv.org.
+\newblock http://arxiv.org/abs/1212.5405.
 \end{thebibliography}
 \end{document}
