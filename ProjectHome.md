@@ -1,0 +1,1 @@
+Statistical tools to evaluate a confidence statement of population median ordering. MedOr is an R package.
